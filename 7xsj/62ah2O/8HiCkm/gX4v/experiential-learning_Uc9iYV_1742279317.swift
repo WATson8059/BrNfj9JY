@@ -97,7 +97,6 @@ class FieldTripView {
         //create student
         fieldTripService.fieldTripController.addStudent(name, age, grade)
         let students = [fieldTripService.fieldTripController.studentDataSource.students.last!]
-
         //create field trip 
         let name = "Explore The World"
         let description = "An educational program that provides students with the opportunity to explore the world around them through guided field trips and experiential learning."
