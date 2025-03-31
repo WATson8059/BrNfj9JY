@@ -215,7 +215,6 @@ class ChatInterface(Frame):
         self.send_button.config(bg="#FFFFFF", fg="#000000", activebackground="#FFFFFF", activeforeground="#000000")
         #self.emoji_button.config(bg="#FFFFFF", fg="#000000", activebackground="#FFFFFF", activeforeground="#000000")
         self.sent_label.config(bg="#EEEEEE", fg="#000000")
-
         self.tl_bg = "#FFFFFF"
         self.tl_bg2 = "#EEEEEE"
         self.tl_fg = "#000000"
