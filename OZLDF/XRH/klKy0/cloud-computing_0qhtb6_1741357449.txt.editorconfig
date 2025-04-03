@@ -72,7 +72,6 @@ dotnet_naming_symbols.constant_fields.applicable_kinds                       = f
 dotnet_naming_symbols.constant_fields.required_modifiers                     = const
 # non_private_readonly_fields - Define public, internal and protected readonly fields
 dotnet_naming_symbols.non_private_readonly_fields.applicable_accessibilities = public, internal, protected
-dotnet_naming_symbols.non_private_readonly_fields.applicable_kinds           = field
 dotnet_naming_symbols.non_private_readonly_fields.required_modifiers         = readonly
 # static_readonly_fields - Define static and readonly fields
 dotnet_naming_symbols.static_readonly_fields.applicable_kinds                = field
