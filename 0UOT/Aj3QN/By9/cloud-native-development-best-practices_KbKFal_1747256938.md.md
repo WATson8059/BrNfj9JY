@@ -37,7 +37,6 @@ SEQUENCES are much more flexible than IDENTIFIER columns because:
 There is another database-independent alternative to generating sequences. One or multiple tables can be used to hold 
 the identifier sequence counter. But it means trading write performance for database portability.
 
-While IDENTITY and SEQUENCES are transaction-less, using a database table mandate ACID, 
 for synchronizing multiple concurrent id generation requests.
 
 This is made possible by using row-level locking which comes at a higher cost than IDENTITY or SEQUENCE generators.
