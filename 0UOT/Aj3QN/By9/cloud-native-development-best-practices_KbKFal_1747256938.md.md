@@ -62,7 +62,6 @@ instead of IDENTITY when the underlying database does not support sequences.
 
 To fix that we could use
 
-    @Id
     @GeneratedValue(
         strategy= GenerationType.AUTO,
         generator="native"
