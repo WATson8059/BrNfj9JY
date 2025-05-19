@@ -24,7 +24,6 @@ statement. This restriction is hindering the transactional write-behind strategy
 
 ## SEQUENCE
 
-A SEQUENCE is a database object that generates incremental integers on each successive request. 
 SEQUENCES are much more flexible than IDENTIFIER columns because:
 
 - A SEQUENCE is table free and the same sequence can be assigned to multiple columns or tables
