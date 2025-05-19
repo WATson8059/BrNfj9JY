@@ -51,7 +51,6 @@ so the overall application performance might be affected.
 
 [Why you should never use the TABLE identifier generator with JPA and Hibernate](https://vladmihalcea.com/why-you-should-never-use-the-table-identifier-generator-with-jpa-and-hibernate/)
 
-
 Using `AUTO GenerationType` is not an option because since Hibernate picks the TABLE generator 
 instead of IDENTITY when the underlying database does not support sequences. 
 
