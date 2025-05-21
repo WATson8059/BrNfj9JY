@@ -9,7 +9,6 @@ TABLE (SEQUENCE)
 
 The IDENTITY generator allows an integer/bigint column to be auto-incremented on demand. 
 The increment process happens outside of the current running transaction, 
-so a roll-back may end-up discarding already assigned values (value gaps may happen).
 
 The increment process is very efficient since it uses a database internal lightweight 
 locking mechanism as opposed to the more heavyweight transactional course-grain locks.
