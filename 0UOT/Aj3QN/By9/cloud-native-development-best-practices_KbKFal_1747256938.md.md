@@ -84,4 +84,3 @@ Check how we achieve that:
 - [Config YML File](https://github.com/Backbase/golden-sample-services/tree/main/review/src/main/resources/db/mapping/mysql_entities_identity_strategy_override.yml)
 - [MySQL ORM File](https://github.com/Backbase/golden-sample-services/tree/main/review/src/main/resources/db/mapping/mysql-orm.xml)
 - [Liquibase changelog](https://github.com/Backbase/golden-sample-services/tree/main/review/src/main/resources/db/changelog/000-create.yaml)
-                                                                                                     
