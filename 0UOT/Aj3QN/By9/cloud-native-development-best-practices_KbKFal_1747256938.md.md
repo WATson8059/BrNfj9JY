@@ -79,7 +79,6 @@ as well as Oracle and SQL Server, so portability is our primary concern.
 As previously explained, the TABLE identifier generator is database-independent but 
 does not scale, so we will avoid it. 
 
-We will just use SEQUENCE by default, and override this with the IDENTITY strategy for MySQL.
 Check how we achieve that:
 
 - [Config Class](https://github.com/Backbase/golden-sample-services/tree/main/review/src/main/java/com/backbase/goldensample/review/config/IdentityStrategyOverrideConfiguration.java)
