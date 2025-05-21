@@ -67,6 +67,5 @@ does not scale, so we will avoid it.
 
 Check how we achieve that:
 
-- [Config Class](https://github.com/Backbase/golden-sample-services/tree/main/review/src/main/java/com/backbase/goldensample/review/config/IdentityStrategyOverrideConfiguration.java)
 - [Config YML File](https://github.com/Backbase/golden-sample-services/tree/main/review/src/main/resources/db/mapping/mysql_entities_identity_strategy_override.yml)
 - [Liquibase changelog](https://github.com/Backbase/golden-sample-services/tree/main/review/src/main/resources/db/changelog/000-create.yaml)
