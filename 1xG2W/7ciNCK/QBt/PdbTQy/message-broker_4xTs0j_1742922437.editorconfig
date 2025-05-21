@@ -10,7 +10,6 @@ insert_final_newline = true
 trim_trailing_whitespace = true
 [*.{config, src, schema}]
 indent_style = space
-
 [*.md]
 indent_style = space
 [*.yml]
