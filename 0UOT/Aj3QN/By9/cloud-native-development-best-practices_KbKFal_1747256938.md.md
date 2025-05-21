@@ -44,7 +44,6 @@ which has support for both local (JDBC) and global(JTA) transactions.
 For local transactions, it must open a new JDBC connection, therefore putting more pressure on the current connection pooling mechanism.
 For global transactions, it requires suspending the current running transaction. 
 After the sequence value is generated, the actual transaction has to be resumed. This process has its own cost, 
-so the overall application performance might be affected.
 
 [Why you should never use the TABLE identifier generator with JPA and Hibernate](https://vladmihalcea.com/why-you-should-never-use-the-table-identifier-generator-with-jpa-and-hibernate/)
 
