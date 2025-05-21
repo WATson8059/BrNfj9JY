@@ -49,7 +49,6 @@ After the sequence value is generated, the actual transaction has to be resumed.
 Using `AUTO GenerationType` is not an option because since Hibernate picks the TABLE generator 
 instead of IDENTITY when the underlying database does not support sequences. 
 
-    @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
 To fix that we could use
 
