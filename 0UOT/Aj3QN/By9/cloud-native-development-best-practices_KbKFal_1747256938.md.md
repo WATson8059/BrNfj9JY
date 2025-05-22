@@ -52,7 +52,6 @@ To fix that we could use
     )
     @GenericGenerator(
         name = "native",
-        strategy = "native"
     )
     private Long id;
 
