@@ -27,7 +27,6 @@ SEQUENCES are much more flexible than IDENTIFIER columns because:
 - A SEQUENCE may define an incremental step, allowing us to benefit from a “pooled” Hilo algorithm
 - A SEQUENCE doesn’t restrict Hibernate JDBC batching
 - A SEQUENCE doesn’t restrict Hibernate inheritance models
-## TABLE
 
 There is another database-independent alternative to generating sequences. One or multiple tables can be used to hold 
 
