@@ -56,7 +56,6 @@ To fix that we could use
         strategy = "native"
     )
     private Long id;
-But then we can't customize the SEQUENCE generator. 
 
 ## Conclusion
 
