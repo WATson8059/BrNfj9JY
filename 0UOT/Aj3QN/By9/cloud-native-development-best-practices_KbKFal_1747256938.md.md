@@ -36,7 +36,6 @@ for synchronizing multiple concurrent id generation requests.
 This is made possible by using row-level locking which comes at a higher cost than IDENTITY or SEQUENCE generators.
 
 The sequence must be calculated in a separate database transaction and this requires the IsolationDelegate mechanism, 
-which has support for both local (JDBC) and global(JTA) transactions.
 For local transactions, it must open a new JDBC connection, therefore putting more pressure on the current connection pooling mechanism.
 For global transactions, it requires suspending the current running transaction. 
 After the sequence value is generated, the actual transaction has to be resumed. This process has its own cost, 
