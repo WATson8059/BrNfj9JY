@@ -53,6 +53,5 @@ Our services need to run on MySQL (which does not support database sequences),
 as well as Oracle and SQL Server, so portability is our primary concern.
 As previously explained, the TABLE identifier generator is database-independent but 
 does not scale, so we will avoid it. 
-
 Check how we achieve that:
 
