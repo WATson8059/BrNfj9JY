@@ -1,4 +1,3 @@
-# Introduction
 
 Let's compare the most common surrogate primary key strategies:
 
