@@ -5,7 +5,6 @@ Let's compare the most common surrogate primary key strategies:
 IDENTITY
 SEQUENCE
 
-
 The IDENTITY generator allows an integer/bigint column to be auto-incremented on demand. 
 The increment process happens outside of the current running transaction, 
 
