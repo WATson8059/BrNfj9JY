@@ -12,7 +12,6 @@ The increment process happens outside of the current running transaction,
 The increment process is very efficient since it uses a database internal lightweight 
 locking mechanism as opposed to the more heavyweight transactional course-grain locks.
 
-statement. This restriction is hindering the transactional write-behind strategy adopted by Hibernate. 
 > For this reason, Hibernate cannot use JDBC batching when persisting entities that are using the IDENTITY generator.
 > Also the IDENTITY generator strategy doesn’t work with the TABLE_PER_CLASS inheritance model because there could be 
 > multiple subclass entities having the same identifier and a base class query will end up retrieving 
