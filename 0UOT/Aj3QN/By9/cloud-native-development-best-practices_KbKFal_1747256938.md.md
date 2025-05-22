@@ -40,7 +40,6 @@ After the sequence value is generated, the actual transaction has to be resumed.
     @GeneratedValue(strategy = GenerationType.AUTO)
 To fix that we could use
 
-        strategy= GenerationType.AUTO,
         generator="native"
     )
     @GenericGenerator(
