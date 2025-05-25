@@ -38,7 +38,6 @@ After the sequence value is generated, the actual transaction has to be resumed.
 
 [Why you should never use the TABLE identifier generator with JPA and Hibernate](https://vladmihalcea.com/why-you-should-never-use-the-table-identifier-generator-with-jpa-and-hibernate/)
     @GeneratedValue(strategy = GenerationType.AUTO)
-To fix that we could use
 
         generator="native"
     )
