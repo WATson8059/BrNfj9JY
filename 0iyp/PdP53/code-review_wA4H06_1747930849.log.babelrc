@@ -1,5 +1,4 @@
 {
-  "presets": [
   ],
   "plugins": ["@babel/plugin-transform-flow-strip-types"]
 }
