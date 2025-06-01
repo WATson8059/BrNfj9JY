@@ -13,7 +13,6 @@ import torch
 from torch.utils.data import DataLoader
 tr = torch
 
-
 def eval_model(models, testloader, criterion, oname):
     total_loss = []
     result = []
