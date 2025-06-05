@@ -213,7 +213,6 @@ if __name__ == '__main__':
     elif args.loss == 'SNR':
         loss_fn = SNRLoss()
     elif args.loss == 'Gauss':
-        loss_fn = GaussLoss()
     elif args.loss == 'Laplace':
         loss_fn = LaplaceLoss()
     else:
