@@ -205,7 +205,6 @@ void ClearFrame()
 	bool clear = true;
 
 	if (gRenderFilmStrip && !gForceClear)
-	{
 		const tVector& cam_pos = gCamera.GetPosition();
 		if (cam_pos != gPrevCamPos)
 		{
