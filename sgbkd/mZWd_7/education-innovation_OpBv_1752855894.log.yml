@@ -1,0 +1,133 @@
+language: php
+
+php:
+  - 7.2
+dist: bionic
+os:
+  - linux
+addons:
+  mariadb: '10.1'
+env:
+  global:
+    - ES_VER=1.0.1
+    - ES_MAPPER_ATTACHMENTS_VER=2.0.0.RC1
+    - ES_TRANSPORT_THRIFT_VER=2.0.0.RC1
+    - ES_GEOCLUSTER_FACET_VER=0.0.10
+    - ES_WAIT_ON_MAPPING_CHANGE=true
+    - DATABASE='drupal'
+    - DB_USERNAME='root'
+    - DB_ENCODE='utf8'
+    - DRUPAL_3RD_PARTY='composer_manager'
+    - DRUPAL_3RD_PARTY='libraries'
+
+before_install:
+  - phpenv config-rm xdebug.ini
+  - ~/.phpenv/versions/$(phpenv version-name)/bin/composer self-update
+  - export UPDATE TRAVIS_BUILD_DIR
+  - BUILD_TOP=`dirname $TRAVIS_BUILD_DIR`
+  - EXIT_VALUE=0
+
+  - sudo apt-get update > /dev/null
+  - sudo apt-get install -y --force-yes uuid uuid-runtime
+  # mail requirements
+  - sudo apt-get update -qq
+  - sudo apt-get install -y -qq postfix
+  - sudo apt-get upgrade
+install:
+  - sudo apt-get install software-properties-common -y
+  - sudo apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xF1656F24C74CD1D8
+  - sudo add-apt-repository 'deb [arch=amd64,i386,ppc64el] http://ftp.utexas.edu/mariadb/repo/10.1/ubuntu xenial main'
+  - sudo apt-get update -y
+  - sudo apt-get install mariadb-server -y
+  - sudo apt-get -y install apache2
+  - sudo apt-get -y install sendmail uuid uuid-runtime curl policycoreutils unzip patch git nano gcc make autoconf libc-dev pkg-config
+  - sudo apt-get -y --force-yes install php php7.2-fpm php7.2-gd php7.2-xml php-common php-mysql php-ldap php-cgi php-pear php7.2-mbstring php7.2-zip php-xml php-curl php-cli php-apcu php-dev libmcrypt-dev
+  - sudo curl -sS https://getcomposer.org/installer | php
+  - sudo mv composer.phar /usr/local/bin/composer
+  - sudo sed -i '1i export PATH="/home/travis/.composer/vendor/bin:$PATH"' /home/travis/.bashrc
+  - sudo sed -i '1i export PATH="/home/travis/.config/composer/vendor/bin:$PATH"' /home/travis/.bashrc
+  - source /home/travis/.bashrc
+  # full path to execute in case root needs to log out before it picks it up
+  - php /usr/local/bin/composer global require consolidation/cgr
+  - cgr drush/drush:8.x-dev --prefer-source
+before_script:
+  - cd ../../../
+  # enable php-fpm
+  - sudo cp ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.conf.default ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.conf
+  - sudo a2enmod rewrite actions alias
+  - sudo a2enmod proxy_fcgi setenvif
+  - sudo a2enconf php7.2-fpm
+  - sudo a2dismod mpm_prefork
+  - sudo a2enmod mpm_event
+  - sudo a2enmod ssl rewrite headers
+  - sudo pecl channel-update pecl.php.net
+  - ~/.phpenv/versions/$(phpenv version-name)/sbin/php-fpm
+  - sudo mkdir -p /etc/apache2/sites-available
+  - sudo mkdir -p /etc/apache2/sites-enabled
+  - sudo service apache2 restart
+  - sudo service php7.2-fpm restart
+  - sudo service mariadb restart
+  - sudo service apache2 restart
+  - sudo apt-get install libyaml-dev -y
+  - yes '' | sudo pecl install -f yaml-2.0.0
+  - yes '' | sudo pecl install -f mcrypt-1.0.1
+  - sudo phpenmod yaml
+  - sudo service php7.2-fpm restart
+  # sometimes these are not installed for some reason
+  - sudo apt-get -y install php7.2-mbstring php7.2-zip
+  - sudo groupadd elmsln
+  # setup fake mailserver
+  - sudo service postfix stop
+  # elms setup stuff... finally
+  - sudo mkdir -p /var/www
+  - sudo chown -R travis:travis /var/www
+  # symlink to the code that was pulled in for testing
+  - ln -s /home/travis/build/elmsln/elmsln /var/www/elmsln
+  # move into scope of our instance
+  - cd /var/www/elmsln
+  # replace config w/ the example provided
+  - rm -rf config
+  - git clone https://github.com/elmsln/elmsln-config-example.git config
+  # get the travis build parameters to pipe into the system as input
+  - cd /home/travis
+  - sudo git clone https://github.com/elmsln/elmsln-config-travis-ci.git
+  # tee up the preinstall values
+  - cat /home/travis/elmsln-config-travis-ci/elmsln-preinstall-values
+  - cat /home/travis/elmsln-config-travis-ci/elmsln-preinstall-values | sudo bash /var/www/elmsln/scripts/install/root/elmsln-preinstall.sh
+  # list whats in .drush, .bashrc and the generated config file to verify they worked
+  - ls /home/travis/.drush
+  - sudo chown -R travis:travis /home/travis/.drush
+  - cat /home/travis/.bashrc
+  - cat /var/www/elmsln/config/scripts/drush-create-site/config.cfg
+  - cat /var/www/elmsln/config/scripts/drush-create-site/configpwd.cfg
+  # due to weirdness in travis w/ php versions we have to do it this way
+  - cat /var/www/elmsln/scripts/server/php.txt >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
+  - ls -lasD /etc/apache2/sites-enabled
+  - ls -lasD /etc/apache2/sites-available
+  - sudo service apache2 restart
+script:
+  - sudo chown -R travis:travis /var/www/elmsln
+  - sudo chown -R travis:travis /var/www/elmsln/config
+  - cd /var/www/elmsln
+  - ls -lasD
+  - pwd
+  # run the installer
+  - bash /var/www/elmsln/scripts/install/elmsln-install.sh
+  - drush sa
+  - drush @online cc drush
+  - drush @online en cis_example_cis --y
+  # now run through the site upgrade routine
+  #- bash /var/www/elmsln/scripts/upgrade/elmsln-upgrade-sites.sh
+  # eventually we want to create all this stuff automatically
+  #- drush @online cis-kraken --actually_run --y
+  - ls -lasD /var/www/elmsln/config/jobs -v
+  #-sudo bash /var/www/elmsln/scripts/drush-create-site/drush-create-site
+
+after_script:
+  - drush @online status
+
+notifications:
+  email: false
+  slack:
+    rooms:
+      - elmsln:WmKTRMe7k3IjprunaAVV3Jjg#qa
