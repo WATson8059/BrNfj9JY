@@ -1,0 +1,57 @@
+---
+# https://golangci-lint.run/usage/configuration/#config-file
+#
+version: "2"
+linters:
+  default: none
+  enable:
+    - asciicheck
+    - bidichk
+    - contextcheck
+    - dupl
+    - errcheck
+    - errname
+    - errorlint
+    - exhaustive
+    - forcetypeassert
+    - funlen
+    - goconst
+    - gocyclo
+    - gosec
+    - govet
+    - ineffassign
+    - lll
+    - makezero
+    - misspell
+    - nakedret
+    - revive
+    - staticcheck
+    - unconvert
+    - unparam
+    - unused
+    - whitespace
+  exclusions:
+    generated: lax
+    presets:
+      - comments
+      - common-false-positives
+      - legacy
+      - std-error-handling
+    rules:
+      - linters:
+          - revive
+        text: 'dot-imports: should not use dot imports'
+        source: . "github.com/onsi/(ginkgo/v2|gomega)"
+    paths:
+      - third_party$
+      - builtin$
+      - examples$
+formatters:
+  enable:
+    - goimports
+  exclusions:
+    generated: lax
+    paths:
+      - third_party$
+      - builtin$
+      - examples$
